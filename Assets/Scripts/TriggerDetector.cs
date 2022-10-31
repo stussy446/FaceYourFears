@@ -21,6 +21,11 @@ public class TriggerDetector : MonoBehaviour
         CheckForGhosts();
     }
 
+    /// <summary>
+    /// Uses a raycast from the main camera to spot ghosts, if a ghoost is hit
+    /// stores it in lastHitGameObject so we can have ghost perform a behavior
+    /// as needed 
+    /// </summary>
     private void CheckForGhosts()
     {
         Vector3 viewport = new Vector3(0.5f, 0.5f, 0f);
@@ -36,6 +41,17 @@ public class TriggerDetector : MonoBehaviour
 
             //Debug.DrawLine(cam.transform.position, hit.transform.position, Color.red);
         }
+      
+    }
+
+    /// <summary>
+    /// handles triggers such as player walking into a specific part of the level
+    /// that triggers a scream, etc 
+    /// </summary>
+    /// <param name="other"></param>
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log(other.gameObject);
     }
 }
 
