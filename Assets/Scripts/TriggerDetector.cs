@@ -37,7 +37,12 @@ public class TriggerDetector : MonoBehaviour
         if (Physics.Raycast(ray, out ghostHit, rayCastDistance, ghostLayerMask))
         {
             lastGhostHit = ghostHit.transform.gameObject;
-            Debug.Log(lastGhostHit);
+            var triggerToPerform = lastGhostHit.GetComponent<ITriggerHandler>();
+
+            if (triggerToPerform != null)
+            {
+                triggerToPerform.PerformBehavior();
+            }
 
             //Debug.DrawLine(cam.transform.position, hit.transform.position, Color.red);
         }
@@ -53,7 +58,10 @@ public class TriggerDetector : MonoBehaviour
     {
         Debug.Log(other.gameObject);
         var triggerToPerform = other.GetComponent<ITriggerHandler>();
-        triggerToPerform.PerformBehavior();
+        if (triggerToPerform != null)
+        {
+            triggerToPerform.PerformBehavior();
+        }
     }
 }
 
