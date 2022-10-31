@@ -8,7 +8,7 @@ public class TriggerDetector : MonoBehaviour
     [SerializeField] LayerMask ghostLayerMask;
     [SerializeField] int rayCastDistance = 100;
 
-    private GameObject lastHitGameObject;
+    private GameObject lastGhostHit;
     private Camera cam;
 
     private void Start()
@@ -30,14 +30,14 @@ public class TriggerDetector : MonoBehaviour
     {
         Vector3 viewport = new Vector3(0.5f, 0.5f, 0f);
         Ray ray = cam.ViewportPointToRay(viewport);
-        RaycastHit hit;
+        RaycastHit ghostHit;
 
         ray.origin = cam.transform.position;
 
-        if (Physics.Raycast(ray, out hit, rayCastDistance, ghostLayerMask))
+        if (Physics.Raycast(ray, out ghostHit, rayCastDistance, ghostLayerMask))
         {
-            lastHitGameObject = hit.transform.gameObject;
-            Debug.Log(lastHitGameObject);
+            lastGhostHit = ghostHit.transform.gameObject;
+            Debug.Log(lastGhostHit);
 
             //Debug.DrawLine(cam.transform.position, hit.transform.position, Color.red);
         }
@@ -52,6 +52,8 @@ public class TriggerDetector : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log(other.gameObject);
+        var triggerToPerform = other.GetComponent<ITriggerHandler>();
+        triggerToPerform.PerformBehavior();
     }
 }
 
