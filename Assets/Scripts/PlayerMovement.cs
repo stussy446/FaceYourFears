@@ -12,12 +12,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float jumpImpulse = 5f;
 
     Camera cam;
-    float mouseSensitivity = 5f;
+    float mouseSensitivity = 3.5f;
     float vertRotationStore;
     float gravityMod = 2f;
     float activeMoveSpeed;
-    private float walkSpeed = 5f;
-    private float runSpeed = 8f;
+    private float walkSpeed = 10f;
+    private float runSpeed = 16f;
 
     bool isGrounded;
 
@@ -57,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void ProcessPlayerMovement()
     {
-        moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
+        moveDirection = new Vector3(Input.GetAxisRaw("Horizontal"), 0f, Input.GetAxisRaw("Vertical"));
         if (Input.GetKey(KeyCode.LeftShift))
         {
             activeMoveSpeed = runSpeed;
@@ -75,7 +75,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Jump
-        isGrounded = Physics.Raycast(groundCheck.position, Vector3.down, 0.2f, groundLayers);
+        isGrounded = Physics.Raycast(groundCheck.position, Vector3.down, 0.5f, groundLayers);
         Debug.Log(isGrounded);
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
