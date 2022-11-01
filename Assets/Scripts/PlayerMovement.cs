@@ -16,10 +16,10 @@ public class PlayerMovement : MonoBehaviour
     Camera cam;
     float mouseSensitivity = 3.5f;
     float vertRotationStore;
-    float gravityMod = 2f;
+    float gravityMod = 5f;
     float activeMoveSpeed;
-    private float walkSpeed = 10f;
-    private float runSpeed = 16f;
+    [SerializeField] private float walkSpeed = 16f;
+    [SerializeField] private float runSpeed = 25f;
 
     bool isGrounded;
 
