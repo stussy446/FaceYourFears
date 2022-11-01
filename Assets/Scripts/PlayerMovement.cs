@@ -18,8 +18,8 @@ public class PlayerMovement : MonoBehaviour
     float vertRotationStore;
     float gravityMod = 5f;
     float activeMoveSpeed;
-    private float walkSpeed = 16f;
-    private float runSpeed = 25f;
+    [SerializeField] private float walkSpeed = 16f;
+    [SerializeField] private float runSpeed = 25f;
 
     bool isGrounded;
 
