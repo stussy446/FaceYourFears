@@ -12,6 +12,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float jumpImpulse = 5f;
     [SerializeField] private GameObject machete;
     [SerializeField] private Animator macheteAnimator;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private List<AudioClip> audioClips;
+    [SerializeField] private GameObject headlight;
 
     Camera cam;
     float mouseSensitivity = 3.5f;
@@ -41,7 +44,24 @@ public class PlayerMovement : MonoBehaviour
         ProcessPlayerView();
         ProcessMacheteSwing();
         ManageMouseCursor();
+        ManageHeadlight();
     }
+
+    private void ManageHeadlight()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (headlight.activeInHierarchy)
+            {
+                headlight.SetActive(false);
+            }
+            else
+            {
+                headlight.SetActive(true);
+            }
+        }
+    }
+
     /// <summary>
     /// Makes mouse cursor disappear when user is playing game.
     /// Press Escape to reactive mouse cursor.
@@ -108,12 +128,35 @@ public class PlayerMovement : MonoBehaviour
     private void ProcessPlayerMovement()
     {
         moveDirection = new Vector3(Input.GetAxisRaw("Horizontal"), 0f, Input.GetAxisRaw("Vertical"));
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.LeftShift)) 
         {
-            activeMoveSpeed = runSpeed;
-        } else
+            if (audioSource.clip == audioClips[0] || !isGrounded)
+            {
+                audioSource.enabled = false;
+            }
+            if (isGrounded)
+            {
+                activeMoveSpeed = runSpeed;
+                audioSource.clip = audioClips[1];
+                audioSource.enabled = true;
+            }
+            
+    } else
         {
-            activeMoveSpeed = walkSpeed;
+            if (audioSource.clip == audioClips[1] || !isGrounded)
+            {
+                audioSource.enabled = false;
+            }
+            if (isGrounded)
+            {
+                activeMoveSpeed = walkSpeed;
+                audioSource.clip = audioClips[0];
+                audioSource.enabled = true;
+            }
+        }
+        if (moveDirection == Vector3.zero)
+        {
+            audioSource.enabled = false;
         }
         float yVelocity = movement.y;
         movement = ((transform.right * moveDirection.x) + (transform.forward * moveDirection.z)).normalized * activeMoveSpeed;
