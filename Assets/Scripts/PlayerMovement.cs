@@ -176,7 +176,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Jump
-        isGrounded = Physics.Raycast(groundCheck.position, Vector3.down, 0.5f, groundLayers);
+        isGrounded = Physics.Raycast(groundCheck.position, Vector3.down, 0.75f, groundLayers);
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             movement.y = jumpImpulse;
