@@ -7,6 +7,8 @@ public class TriggerDetector : MonoBehaviour
     [SerializeField] Collider playerCollider;
     [SerializeField] LayerMask ghostLayerMask;
     [SerializeField] int rayCastDistance = 100;
+    private SpawnAndRespawn spawnManager;
+
 
     private GameObject lastGhostHit;
     private Camera cam;
@@ -14,6 +16,7 @@ public class TriggerDetector : MonoBehaviour
     private void Start()
     {
         cam = Camera.main;
+        spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnAndRespawn>();
     }
 
     void Update()

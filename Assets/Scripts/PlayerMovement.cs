@@ -16,9 +16,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private List<AudioClip> audioClips;
     [SerializeField] private GameObject headlight;
 
+    private SpawnAndRespawn spawnManager;
     private MeshRenderer playerMesh;
     Camera cam;
-    float mouseSensitivity = 3.5f;
+    float mouseSensitivity = 2f;
     float vertRotationStore;
     float gravityMod = 5f;
     float activeMoveSpeed;
@@ -32,8 +33,10 @@ public class PlayerMovement : MonoBehaviour
     private float macheteRange = 3.2f;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnAndRespawn>();
+        spawnManager.spawnText.gameObject.SetActive(false);
         cam = Camera.main;
         Cursor.lockState = CursorLockMode.Locked;
         machete.transform.localPosition = eyes.transform.position - new Vector3(0f, 0f, -2f);
