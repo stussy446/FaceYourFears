@@ -10,6 +10,10 @@ public class RiverHandler : MonoBehaviour
     {
         spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnAndRespawn>();
     }
+    /// <summary>
+    /// Checks if the object that collided with the river is the player. Destroys the player. Respawns the player.
+    /// </summary>
+    /// <param name="other"></param>
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))

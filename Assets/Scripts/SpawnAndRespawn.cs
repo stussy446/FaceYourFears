@@ -12,6 +12,9 @@ public class SpawnAndRespawn : MonoBehaviour
 
     private float timeToRespawn = 3f;
 
+    /// <summary>
+    /// Activates respawn text. Starts respawn coroutine.
+    /// </summary>
     public void RespawnPlayer()
     {
         spawnText.text = "You died!\nRespawning in: " + timeToRespawn;
@@ -19,6 +22,10 @@ public class SpawnAndRespawn : MonoBehaviour
         StartCoroutine(RespawnTime());   
     }
 
+    /// <summary>
+    /// Updates respawn text after every second. Then respawns player.
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator RespawnTime()
     {
         while (timeToRespawn > 0)

@@ -10,7 +10,10 @@ public class SoundTriggers : MonoBehaviour
     {
         m_AudioSource = GetComponent<AudioSource>();
     }
-
+    /// <summary>
+    /// When player passes through sound trigger, if sound isn't already playing, play the sound.
+    /// </summary>
+    /// <param name="other"></param>
     private void OnTriggerEnter(Collider other)
     {
         if (!m_AudioSource.isPlaying)
@@ -18,6 +21,4 @@ public class SoundTriggers : MonoBehaviour
             m_AudioSource.Play();
         }
     }
-
-
 }
