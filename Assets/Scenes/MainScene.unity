@@ -447,6 +447,9 @@ MonoBehaviour:
   jumpImpulse: 10
   machete: {fileID: 570672749}
   macheteAnimator: {fileID: 570672755}
+  audioSource: {fileID: 0}
+  audioClips: []
+  headlight: {fileID: 0}
   walkSpeed: 16
   runSpeed: 25
 --- !u!136 &408267143

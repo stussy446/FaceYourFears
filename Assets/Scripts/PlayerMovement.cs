@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private List<AudioClip> audioClips;
     [SerializeField] private GameObject headlight;
 
+    private MeshRenderer playerMesh;
     Camera cam;
     float mouseSensitivity = 3.5f;
     float vertRotationStore;
@@ -35,6 +36,10 @@ public class PlayerMovement : MonoBehaviour
     {
         cam = Camera.main;
         Cursor.lockState = CursorLockMode.Locked;
+        machete.transform.localPosition = eyes.transform.position - new Vector3(0f, 0f, -2f);
+        playerMesh = GetComponent<MeshRenderer>();
+        playerMesh.enabled = false;
+        eyes.GetComponent<MeshRenderer>().enabled = false;
     }
 
     // Update is called once per frame
