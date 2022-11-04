@@ -12,7 +12,6 @@ public class Ghost : MonoBehaviour, ITriggerHandler
     [Tooltip("handles how quickly the ghost fades away")]
     [SerializeField] private float fadeSpeed;
 
-
     void Start()
     {
         ghostMaterial = GetComponent<MeshRenderer>().material;
@@ -29,6 +28,7 @@ public class Ghost : MonoBehaviour, ITriggerHandler
         GetComponent<Collider>().enabled = false;  
         ghostAudioSource.Play();
 
+        GameManager.Instance.GhostCount++;
         StartCoroutine(FadeAway(ghostMatColor));
     }
 
@@ -47,6 +47,7 @@ public class Ghost : MonoBehaviour, ITriggerHandler
             yield return new WaitForEndOfFrame();
         }
         yield return new WaitForSeconds(ghostAudioSource.clip.length);
+
         Destroy(gameObject);
     }
 }
