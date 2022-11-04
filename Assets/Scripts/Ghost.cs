@@ -6,6 +6,7 @@ using UnityEngine;
 public class Ghost : MonoBehaviour, ITriggerHandler
 {
     Material ghostMaterial;
+    [SerializeField] private AudioSource ghostAudioSource;
 
     [Header("Fade Settings")]
     [Tooltip("handles how quickly the ghost fades away")]
@@ -15,6 +16,7 @@ public class Ghost : MonoBehaviour, ITriggerHandler
     void Start()
     {
         ghostMaterial = GetComponent<MeshRenderer>().material;
+        ghostAudioSource = GetComponent<AudioSource>();
     }
 
     /// <summary>
@@ -25,6 +27,7 @@ public class Ghost : MonoBehaviour, ITriggerHandler
     {
         Color ghostMatColor = ghostMaterial.color;
         GetComponent<Collider>().enabled = false;  
+        ghostAudioSource.Play();
 
         StartCoroutine(FadeAway(ghostMatColor));
     }
@@ -43,7 +46,7 @@ public class Ghost : MonoBehaviour, ITriggerHandler
             ghostMaterial.color = new Color(color.r, color.g, color.b, alpha);
             yield return new WaitForEndOfFrame();
         }
-
+        yield return new WaitForSeconds(ghostAudioSource.clip.length);
         Destroy(gameObject);
     }
 }
