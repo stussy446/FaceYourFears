@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private CharacterController charController;
     [SerializeField] private Transform eyes;
-    [SerializeField] private Transform groundCheck;
+    [SerializeField] public Transform groundCheck;
     [SerializeField] private LayerMask groundLayers;
     [SerializeField] float jumpImpulse = 5f;
     [SerializeField] private GameObject machete;
@@ -15,6 +15,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private List<AudioClip> audioClips;
     [SerializeField] private GameObject headlight;
+    [SerializeField] private LayerMask riverMask;
+
 
     private SpawnAndRespawn spawnManager;
     private MeshRenderer playerMesh;
@@ -27,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float runSpeed = 25f;
 
     bool isGrounded;
+    bool isTouchingRiver;
 
     Vector3 moveDirection, movement;
     Vector2 mouseInput;
@@ -53,6 +56,12 @@ public class PlayerMovement : MonoBehaviour
         ProcessMacheteSwing();
         ManageMouseCursor();
         ManageHeadlight();
+        isTouchingRiver = Physics.Raycast(groundCheck.position, Vector3.down, 0.10f, riverMask);
+        if (isTouchingRiver)
+        {
+            Destroy(gameObject);
+            spawnManager.RespawnPlayer();
+        }
     }
 
     private void ManageHeadlight()
