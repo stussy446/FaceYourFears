@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SpawnAndRespawn : MonoBehaviour
 {
@@ -34,6 +35,6 @@ public class SpawnAndRespawn : MonoBehaviour
             timeToRespawn--;
             spawnText.text = "You died!\nRespawning in: " + timeToRespawn;
         }
-        Instantiate(playerPrefab);
+        SceneManager.LoadScene(1);
     }
 }
